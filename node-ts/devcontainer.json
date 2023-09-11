@@ -1,0 +1,39 @@
+{
+  "name": "api",
+  "dockerComposeFile": [
+    "./docker-compose.yaml"
+  ],
+  "service": "api",
+  "workspaceFolder": "/workspace/",
+  "shutdownAction": "stopCompose",
+  "portsAttributes": {
+    "8080": {
+      "label": "API Gateway",
+      "onAutoForward": "notify",
+      "protocol": "http"
+    }
+  },
+  "forwardPorts": [
+    8080
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.tabSize": 2,
+        "remote.autoForwardPorts": false,
+        "remote.portsAttributes": {
+          "8080": {
+            "label": "Application",
+            "onAutoForward": "openPreview",
+            "protocol": "http"
+          }
+        }
+      },
+      "devPort": 80,
+      "extensions": [
+        "ZixuanChen.vitest-explorer"
+      ]
+    }
+  },
+  "remoteUser": "root"
+}

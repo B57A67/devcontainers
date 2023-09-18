@@ -4,7 +4,7 @@ services:
   api:
     extends:
       file: ../docker-compose-shared.yml
-      service: backend-pay
+      service: api
     # TODO: Dockerfile reference
     # build:
     #   dockerfile: ./Dockerfile.dev

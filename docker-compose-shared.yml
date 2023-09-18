@@ -3,50 +3,20 @@ version: "3.3"
 services:
   api:
     build:
-      context: "services/backend-pay"
+      context: "services/backend-pay" # Replace with source to code
       args:
         - GIT_VERSION
         - GIT_COMMIT
     environment:
-      - DENY_LIST_NETSET_URLS
-      - DENY_LIST_SINGLE_IP_CSV_URLS
-      - DENY_LIST_DOUBLE_IP_CSV_URLS
-      - DEBUG
-      - E2E
-      - LOGLEVEL
-      - DEFAULT_HTTP_LOG_LEVEL
-      - RAPYD_BASE_URI
-      - RAPYD_ACCESS_KEY
-      - RAPYD_SECRET_KEY
-      - LUCA_HOSTNAME
-      - LUCA_BACKEND_URL
-      - RAPYD_IP_ALLOW_LIST
-      - MAILER_API_KEY_V2
-      - MAILER_TEMPLATES_TRANSACTION_OVERVIEW_DE_TEMPLATE_ID
-      - MAILER_TEMPLATES_TRANSACTION_OVERVIEW_EN_TEMPLATE_ID
-      - MAILER_TEMPLATES_PARTICIPATE_CAMPAIGN_DE_TEMPLATE_ID
-      - MAILER_TEMPLATES_PARTICIPATE_CAMPAIGN_EN_TEMPLATE_ID
-      - MASTER_WALLET_ID
-      - MAILER_TEMPLATES_RAFFLE_AND_TIP_TOP_UP_STATEMENT_DE_TEMPLATE_ID
-      - MAILER_TEMPLATES_RAFFLE_AND_TIP_TOP_UP_STATEMENT_EN_TEMPLATE_ID
-      - MAILER_TEMPLATES_CONFIRM_CONSUMER_DEVICE_DE_TEMPLATE_ID
-      - MAILER_TEMPLATES_CONFIRM_CONSUMER_DEVICE_EN_TEMPLATE_ID
-      - MAILER_LOCATION_INVOICE_APPROVAL_ADDRESSES
-      - MAILER_BCC_LOCATION_INVOICE
-      - BALANCE_PROCESSING_WAIT_TIME_IN_SECONDS
-      - DB_SSL_DISABLED
-      - DB_SEED_FOLDER
-      - KAFKA_SSL=false
+      - SAMPLE_ENV
 
   database:
-    image: harbor.nexenio.local/cache-dockerhub/postgis/postgis:11-2.5-alpine
+    image: postgres:alpine
     restart: unless-stopped
     environment:
       PGDATA: /data/postgres
-      POSTGRES_USER: luca
-      POSTGRES_PASSWORD: lcadmin
-      POSTGRES_MULTIPLE_DATABASES:
-        '"luca-backend", "luca-pay", "luca-pos", "luca-pos-test", "luca-id",
-        "luca-attestation"'
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_MULTIPLE_DATABASES: my_database
     volumes:
       - ./scripts/postgres-initdb.d:/docker-entrypoint-initdb.d
